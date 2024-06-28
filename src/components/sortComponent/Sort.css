@@ -1,0 +1,31 @@
+.form-label {
+    font-family: 'Montserrat';
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 17.07px;
+    width: 115px;
+    padding-top: 14px;
+}
+
+.sort-section{
+    display: flex;
+    flex-direction: row;
+    padding-top: 32px;
+}
+
+.sort-cont{
+    width: 223px;
+}
+
+.form-select{
+    width: 156px;
+    height: 44px;
+}
+
+.form-select-lg{
+    font-family: 'Montserrat' !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    line-height: 24px !important;
+    text-align: left !important;
+}
