@@ -1,8 +1,9 @@
 import React from 'react'
 import './TaskList.css'
 
-const TaskList = ({ tasks, setTasks, handleShowModal, searchQuery, sortQuery }) => {
+const TaskList = ({ tasks, setTasks, handleShowModal, searchQuery, sortQuery, handleShowdeleteModal }) => {
     const handleDelete = (taskId) => {
+        window.location.reload(true);
         const updatedTasks = tasks.filter(task => task.id !== taskId);
         setTasks(updatedTasks);
         localStorage.setItem('tasks', JSON.stringify(updatedTasks));
@@ -37,11 +38,13 @@ const TaskList = ({ tasks, setTasks, handleShowModal, searchQuery, sortQuery }) 
     };
 
     return (
+        <div className="container">
         <div className="task-list">
             <div className="top-head">
                 <h4>Active Tasks</h4>
             </div>
             {sortedallTasks?.map(task => (
+                <div>
                 <div key={task.id} className="task-item">
                     <div className="heading">
                         <div className="left-heading">
@@ -55,7 +58,7 @@ const TaskList = ({ tasks, setTasks, handleShowModal, searchQuery, sortQuery }) 
                         </div>
                         <div className="right-pic">
                             <img src="/src/assets/image/pen.svg" alt="Edit" onClick={() => handleShowModal(task)} />
-                            <img src="/src/assets/image/delete.svg" alt="Delete" onClick={() => handleDelete(task.id)} />
+                            <img src="/src/assets/image/delete.svg" data-bs-toggle="modal" data-bs-target="#deletetask-modal" alt="Delete" />
                         </div>
                     </div>
                     <div className="para-content">
@@ -63,6 +66,26 @@ const TaskList = ({ tasks, setTasks, handleShowModal, searchQuery, sortQuery }) 
                         <span><img src="/src/assets/image/calendar.svg" /> by {task.dueDate} </span>
                     </div>
                 </div>
+                <div className="modal" id="deletetask-modal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div className="modal-dialog-delete">
+                        <div className="modal-content-delete">
+                            <div className="modal-header-delete">
+                                <div className="cross">
+                                    <img src="/src/assets/image/cross.svg" onClick = {() =>window.location.reload(true) }/>
+                                </div>
+                                <h4 className="modal-title-delete" id="deletetask-modal-label">Delete Task ?</h4>
+                            </div>
+                            <div className="modal-body-delete">
+                                <h3>Are you sure you want to delete this task?</h3>
+                            </div>
+                            <div className="modal-footer-delete">
+                                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick = {() =>window.location.reload(true) }>Cancel</button>
+                                <button type="button" className="btn btn-danger del-task-btn " onClick={() => handleDelete(task.id)}>Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             ))}
             <div className="top-head">
                 <div className="clear-complete">
@@ -93,6 +116,7 @@ const TaskList = ({ tasks, setTasks, handleShowModal, searchQuery, sortQuery }) 
                 </div>
             ))}
         </div>
+    </div>
     );
 };
 
